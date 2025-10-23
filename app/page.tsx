@@ -1,17 +1,26 @@
+'use client';
+
 import Link from 'next/link';
 import { FileText, Upload, CheckCircle, BarChart3 } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-16">
+        <div className="flex justify-end mb-8">
+          <LanguageToggle />
+        </div>
+
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Survey Analysis Platform
+            {t.home.title}
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Analyze open-ended survey responses automatically with AI-powered categorization,
-            sentiment analysis, and thematic grouping.
+            {t.home.subtitle}
           </p>
         </div>
 
@@ -51,7 +60,7 @@ export default function Home() {
             href="/setup"
             className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors"
           >
-            Get Started
+            {t.home.getStarted}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
@@ -60,45 +69,29 @@ export default function Home() {
 
         <div className="mt-20 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            How It Works
+            {t.home.features.title}
           </h2>
-          <div className="space-y-4 text-gray-600 dark:text-gray-300">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <strong>Contextual Analysis:</strong> Provide project context (study type, brand, objectives)
-                so the AI understands what to look for in responses.
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <strong>Smart Categorization:</strong> AI automatically extracts themes (codes) and groups
-                them into higher-level categories (nets) based on industry frameworks.
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <strong>Sentiment Detection:</strong> Each code is tagged with sentiment
-                (Positive, Neutral, Negative) to understand emotional patterns.
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
-                4
-              </div>
-              <div>
-                <strong>Classification:</strong> Every response is mapped to relevant codes and nets,
-                creating quantifiable insights from qualitative data.
-              </div>
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <FeatureCard
+              title={t.home.features.contextual}
+              description={t.home.features.contextualDesc}
+            />
+            <FeatureCard
+              title={t.home.features.classification}
+              description={t.home.features.classificationDesc}
+            />
+            <FeatureCard
+              title={t.home.features.coding}
+              description={t.home.features.codingDesc}
+            />
+            <FeatureCard
+              title={t.home.features.sentiment}
+              description={t.home.features.sentimentDesc}
+            />
+            <FeatureCard
+              title={t.home.features.export}
+              description={t.home.features.exportDesc}
+            />
           </div>
         </div>
       </div>
@@ -148,4 +141,18 @@ function StepCard({ icon, title, description, href, color, disabled }: StepCardP
   }
 
   return <Link href={href}>{content}</Link>;
+}
+
+interface FeatureCardProps {
+  title: string;
+  description: string;
+}
+
+function FeatureCard({ title, description }: FeatureCardProps) {
+  return (
+    <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
+      <p className="text-sm text-gray-600 dark:text-gray-300">{description}</p>
+    </div>
+  );
 }
