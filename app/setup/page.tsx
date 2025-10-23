@@ -14,6 +14,7 @@ export default function SetupPage() {
     projectContext: {
       studyType: 'commercial_evaluation',
       studyPhase: 'exploratory',
+      analysisType: 'theme_analysis',
       brand: '',
       objective: '',
       targetAudience: '',

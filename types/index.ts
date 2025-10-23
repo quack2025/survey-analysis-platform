@@ -17,15 +17,48 @@ export type StudyPhase =
 
 export type QuestionType = 'REFERENCE' | 'OPINION';
 
+export type AnalysisType = 'theme_analysis' | 'brand_coding';
+
 export type Sentiment = 'Positive' | 'Neutral' | 'Negative';
+
+export type BrandCategory =
+  | 'beverages_beer'
+  | 'beverages_soft_drinks'
+  | 'beverages_water'
+  | 'food_dairy'
+  | 'food_snacks'
+  | 'food_packaged'
+  | 'personal_care_skincare'
+  | 'personal_care_haircare'
+  | 'personal_care_oral'
+  | 'automotive'
+  | 'technology'
+  | 'retail'
+  | 'financial'
+  | 'telecom'
+  | 'other';
+
+export type Country =
+  | 'CO' | 'MX' | 'US' | 'BR' | 'AR' | 'CL' | 'PE' | 'EC'
+  | 'VE' | 'UY' | 'PY' | 'BO' | 'CR' | 'PA' | 'GT' | 'HN'
+  | 'SV' | 'NI' | 'DO' | 'PR' | 'ES' | 'global';
+
+export interface BrandCodingConfig {
+  enabled: boolean;
+  brandList: string[];  // Up to 20 brands
+  category?: BrandCategory;
+  country?: Country;
+}
 
 export interface ProjectContext {
   studyType: StudyType;
   studyPhase: StudyPhase;
+  analysisType: AnalysisType;
   brand: string;
   objective: string;
   targetAudience?: string;
   competitiveSet?: string[];
+  brandCoding?: BrandCodingConfig;
 }
 
 export interface TaxonomyPreferences {
