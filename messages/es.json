@@ -28,6 +28,16 @@
     "title": "Plataforma de Análisis de Encuestas",
     "subtitle": "Análisis impulsado por IA de respuestas abiertas",
     "getStarted": "Comenzar",
+    "steps": {
+      "step1Title": "1. Configurar Proyecto",
+      "step1Desc": "Configura tu tipo de estudio, objetivos y marco de análisis",
+      "step2Title": "2. Subir Datos",
+      "step2Desc": "Importa tus respuestas desde CSV o Excel",
+      "step3Title": "3. Revisar Códigos",
+      "step3Desc": "Valida y refina los códigos y temas generados por IA",
+      "step4Title": "4. Ver Resultados",
+      "step4Desc": "Explora insights, gráficos y exporta tu análisis"
+    },
     "features": {
       "title": "Características",
       "contextual": "Análisis Contextual",

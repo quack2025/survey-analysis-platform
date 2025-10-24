@@ -27,29 +27,29 @@ export default function Home() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <StepCard
             icon={<FileText className="w-8 h-8" />}
-            title="1. Configure Project"
-            description="Set up your study type, objectives, and analysis framework"
+            title={t.home.steps.step1Title}
+            description={t.home.steps.step1Desc}
             href="/setup"
             color="blue"
           />
           <StepCard
             icon={<Upload className="w-8 h-8" />}
-            title="2. Upload Data"
-            description="Import your survey responses from CSV or Excel"
+            title={t.home.steps.step2Title}
+            description={t.home.steps.step2Desc}
             color="green"
             disabled
           />
           <StepCard
             icon={<CheckCircle className="w-8 h-8" />}
-            title="3. Review Codes"
-            description="Validate and refine AI-generated codes and themes"
+            title={t.home.steps.step3Title}
+            description={t.home.steps.step3Desc}
             color="yellow"
             disabled
           />
           <StepCard
             icon={<BarChart3 className="w-8 h-8" />}
-            title="4. View Results"
-            description="Explore insights, charts, and export your analysis"
+            title={t.home.steps.step4Title}
+            description={t.home.steps.step4Desc}
             color="purple"
             disabled
           />

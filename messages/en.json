@@ -28,6 +28,16 @@
     "title": "Survey Analysis Platform",
     "subtitle": "AI-powered analysis of open-ended survey responses",
     "getStarted": "Get Started",
+    "steps": {
+      "step1Title": "1. Configure Project",
+      "step1Desc": "Set up your study type, objectives, and analysis framework",
+      "step2Title": "2. Upload Data",
+      "step2Desc": "Import your survey responses from CSV or Excel",
+      "step3Title": "3. Review Codes",
+      "step3Desc": "Validate and refine AI-generated codes and themes",
+      "step4Title": "4. View Results",
+      "step4Desc": "Explore insights, charts, and export your analysis"
+    },
     "features": {
       "title": "Features",
       "contextual": "Contextual Analysis",
