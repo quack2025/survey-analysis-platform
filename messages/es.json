@@ -75,6 +75,8 @@
     "selectCategory": "Selecciona categoría",
     "country": "País/Región (Opcional)",
     "selectCountry": "Selecciona país",
+    "enableManualValidation": "Validar códigos manualmente antes del análisis",
+    "enableManualValidationDesc": "Revisa y edita los códigos generados por IA para mayor precisión (recomendado)",
     "advancedSettings": "Configuración Avanzada",
     "studyTypes": {
       "commercial_evaluation": "Evaluación de Comercial",
@@ -144,14 +146,28 @@
     }
   },
   "validate": {
-    "title": "Validar Códigos",
-    "subtitle": "Revisa y edita los códigos generados por IA antes del análisis final",
+    "title": "Validar Agrupaciones",
+    "subtitle": "Selecciona cómo prefieres agrupar las respuestas. La IA generó 3 opciones diferentes para que elijas la que mejor se ajuste a tus objetivos.",
+    "question": "Pregunta",
+    "selectGrouping": "Selecciona una opción de agrupación",
+    "languageDetected": "Idioma detectado",
+    "spanish": "Español",
+    "english": "Inglés",
+    "codes": "Códigos",
+    "addCode": "Agregar Código",
+    "mergeSelected": "Fusionar Seleccionados",
     "editCode": "Editar nombre del código",
     "changeSentiment": "Cambiar sentimiento",
     "deleteCode": "Eliminar código",
-    "mergeSelected": "Fusionar códigos seleccionados",
-    "splitCode": "Dividir en múltiples códigos",
-    "addCode": "Agregar código manualmente",
-    "continue": "Continuar a Redes"
+    "splitCode": "Dividir código",
+    "positive": "Positivo",
+    "neutral": "Neutral",
+    "negative": "Negativo",
+    "continueAnalysis": "Continuar con Análisis",
+    "backToUpload": "Volver a Subir Datos",
+    "newCode": "Nuevo código",
+    "errorMinCodes": "Debes tener al menos un código para continuar",
+    "errorSelectTwo": "Selecciona al menos 2 códigos para fusionar",
+    "errorCannotSplit": "Este código no se puede dividir (no contiene \"/\")"
   }
 }

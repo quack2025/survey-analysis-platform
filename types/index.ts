@@ -59,6 +59,7 @@ export interface ProjectContext {
   targetAudience?: string;
   competitiveSet?: string[];
   brandCoding?: BrandCodingConfig;
+  enableManualValidation?: boolean;  // Human-in-the-loop: validate codes before final analysis
 }
 
 export interface TaxonomyPreferences {

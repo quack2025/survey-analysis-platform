@@ -131,8 +131,14 @@ export default function UploadPage() {
       // Save to localStorage for next step
       localStorage.setItem('surveyData', JSON.stringify(surveyData));
 
-      // Navigate to processing/review page
-      router.push('/review');
+      // Navigate based on manual validation setting
+      if (config.projectContext.enableManualValidation) {
+        // Human-in-the-loop: go to validation page first
+        router.push('/validate-codes');
+      } else {
+        // Skip validation: go directly to automated review
+        router.push('/review');
+      }
     } catch (error) {
       console.error('Error processing data:', error);
       setError('Failed to process survey data');

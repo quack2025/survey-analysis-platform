@@ -75,6 +75,8 @@
     "selectCategory": "Select category",
     "country": "Country/Region (Optional)",
     "selectCountry": "Select country",
+    "enableManualValidation": "Manually validate codes before analysis",
+    "enableManualValidationDesc": "Review and edit AI-generated codes for higher accuracy (recommended)",
     "advancedSettings": "Advanced Settings",
     "studyTypes": {
       "commercial_evaluation": "Commercial Evaluation",
@@ -144,14 +146,28 @@
     }
   },
   "validate": {
-    "title": "Validate Codes",
-    "subtitle": "Review and edit AI-generated codes before final analysis",
+    "title": "Validate Groupings",
+    "subtitle": "Select how you prefer to group the responses. AI generated 3 different options for you to choose the one that best fits your objectives.",
+    "question": "Question",
+    "selectGrouping": "Select a grouping option",
+    "languageDetected": "Detected language",
+    "spanish": "Spanish",
+    "english": "English",
+    "codes": "Codes",
+    "addCode": "Add Code",
+    "mergeSelected": "Merge Selected",
     "editCode": "Edit code name",
     "changeSentiment": "Change sentiment",
     "deleteCode": "Delete code",
-    "mergeSelected": "Merge selected codes",
-    "splitCode": "Split into multiple codes",
-    "addCode": "Add new code manually",
-    "continue": "Continue to Nets"
+    "splitCode": "Split code",
+    "positive": "Positive",
+    "neutral": "Neutral",
+    "negative": "Negative",
+    "continueAnalysis": "Continue to Analysis",
+    "backToUpload": "Back to Upload Data",
+    "newCode": "New code",
+    "errorMinCodes": "You must have at least one code to continue",
+    "errorSelectTwo": "Select at least 2 codes to merge",
+    "errorCannotSplit": "This code cannot be split (does not contain \"/\")"
   }
 }

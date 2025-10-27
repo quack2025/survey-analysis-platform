@@ -28,6 +28,7 @@ export default function SetupPage() {
         enabled: false,
         brandList: [],
       },
+      enableManualValidation: false,  // Human-in-the-loop disabled by default
     },
     taxonomyPreferences: {
       useIndustryStandard: true,
@@ -469,6 +470,34 @@ export default function SetupPage() {
                           ? 'Usar marcos de referencia estándar de la industria'
                           : 'Use industry-standard frameworks for categorization'}
                       </span>
+                    </label>
+                  </div>
+
+                  {/* Human-in-the-Loop Toggle */}
+                  <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-2 border-blue-200 dark:border-blue-800">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={config.projectContext?.enableManualValidation || false}
+                        onChange={(e) =>
+                          setConfig({
+                            ...config,
+                            projectContext: {
+                              ...config.projectContext!,
+                              enableManualValidation: e.target.checked,
+                            },
+                          })
+                        }
+                        className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-0.5"
+                      />
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-blue-900 dark:text-blue-300 block">
+                          {t.setup.enableManualValidation}
+                        </span>
+                        <span className="text-xs text-blue-700 dark:text-blue-400 mt-1 block">
+                          {t.setup.enableManualValidationDesc}
+                        </span>
+                      </div>
                     </label>
                   </div>
                 </div>
