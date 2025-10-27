@@ -10,6 +10,7 @@ import {
   sanitizeFilename,
   downloadFile,
 } from '@/lib/utils/export';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface ExportMenuProps {
   classifiedAnswers: any[];
@@ -24,6 +25,7 @@ export default function ExportMenu({
   questionText,
   respondentIds = [],
 }: ExportMenuProps) {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   // Extract all unique codes
@@ -89,7 +91,7 @@ export default function ExportMenu({
         className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
       >
         <Download className="w-4 h-4" />
-        Exportar Resultados
+        {t.results.exportResults}
         <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
@@ -105,11 +107,8 @@ export default function ExportMenu({
           <div className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-20">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700">
               <h3 className="font-semibold text-gray-900 dark:text-white">
-                Selecciona Formato de Exportación
+                {t.results.exportResults}
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                Diferentes formatos según tu necesidad de análisis
-              </p>
             </div>
 
             <div className="p-2">
@@ -121,13 +120,10 @@ export default function ExportMenu({
                 <FileSpreadsheet className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-gray-900 dark:text-white text-sm">
-                    Detallado por Respondente
+                    {t.results.exportFormats.detailed}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    Una fila por cada código asignado. Ideal para análisis cualitativo profundo.
-                  </div>
-                  <div className="text-xs text-blue-600 dark:text-blue-400 mt-1 font-mono">
-                    RespondentID | Question | Answer | Net | Code | Sentiment
+                    {t.results.exportFormats.detailedDesc}
                   </div>
                 </div>
               </button>
@@ -140,13 +136,10 @@ export default function ExportMenu({
                 <FileSpreadsheet className="w-5 h-5 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-0.5" />
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-gray-900 dark:text-white text-sm">
-                    Formato Pivot (SPSS/R/Python)
+                    {t.results.exportFormats.pivot}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    Una fila por respondente, columnas con 0/1 por código. Perfecto para análisis estadístico.
-                  </div>
-                  <div className="text-xs text-purple-600 dark:text-purple-400 mt-1 font-mono">
-                    RespondentID | Answer | Codigo1 | Codigo2 | ...
+                    {t.results.exportFormats.pivotDesc}
                   </div>
                 </div>
               </button>
@@ -159,13 +152,10 @@ export default function ExportMenu({
                 <FileText className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-gray-900 dark:text-white text-sm">
-                    Resumen Agregado
+                    {t.results.exportFormats.summary}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    Una fila por respondente con conteo de sentimientos. Ideal para reportes.
-                  </div>
-                  <div className="text-xs text-green-600 dark:text-green-400 mt-1 font-mono">
-                    RespondentID | Nets | Codes | Positive | Neutral | Negative
+                    {t.results.exportFormats.summaryDesc}
                   </div>
                 </div>
               </button>
@@ -178,13 +168,10 @@ export default function ExportMenu({
                 <FileCode className="w-5 h-5 text-orange-600 dark:text-orange-400 flex-shrink-0 mt-0.5" />
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-gray-900 dark:text-white text-sm">
-                    Sintaxis SPSS (.sps)
+                    {t.results.exportFormats.spss}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    Genera sintaxis SPSS con labels y value labels. Combina con formato Pivot.
-                  </div>
-                  <div className="text-xs text-orange-600 dark:text-orange-400 mt-1 font-mono">
-                    VARIABLE LABELS / VALUE LABELS / FREQUENCIES
+                    {t.results.exportFormats.spssDesc}
                   </div>
                 </div>
               </button>
@@ -197,19 +184,13 @@ export default function ExportMenu({
                 <FileText className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" />
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-gray-900 dark:text-white text-sm">
-                    Simple (Básico)
+                    {t.results.exportFormats.simple}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    Formato básico compatible con Excel. Una fila por respuesta.
+                    {t.results.exportFormats.simpleDesc}
                   </div>
                 </div>
               </button>
-            </div>
-
-            <div className="p-3 bg-blue-50 dark:bg-blue-900/20 border-t border-gray-200 dark:border-gray-700 rounded-b-lg">
-              <p className="text-xs text-blue-900 dark:text-blue-300">
-                💡 <strong>Tip:</strong> Usa "Pivot" + "SPSS Syntax" para análisis estadístico completo
-              </p>
             </div>
           </div>
         </>

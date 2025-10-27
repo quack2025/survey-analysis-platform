@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import { ProjectConfig } from '@/types';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import LanguageToggle from '@/components/LanguageToggle';
 
 interface ParsedData {
   headers: string[];
@@ -15,6 +17,7 @@ interface ParsedData {
 
 export default function UploadPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [config, setConfig] = useState<ProjectConfig | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [parsedData, setParsedData] = useState<ParsedData | null>(null);
@@ -148,21 +151,24 @@ export default function UploadPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        <Link
-          href="/setup"
-          className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-6"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          Back to Setup
-        </Link>
+        <div className="flex justify-between items-center mb-6">
+          <Link
+            href="/setup"
+            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            {t.upload.backToSetup}
+          </Link>
+          <LanguageToggle />
+        </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              Upload Survey Data
+              {t.upload.title}
             </h1>
             <p className="text-gray-600 dark:text-gray-300">
-              Upload your survey responses in CSV or Excel format
+              {t.upload.subtitle}
             </p>
             <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
               <p className="text-sm text-blue-900 dark:text-blue-300">
@@ -185,9 +191,9 @@ export default function UploadPage() {
                 <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                 <label className="cursor-pointer">
                   <span className="text-blue-600 hover:text-blue-700 font-semibold">
-                    Click to upload
+                    {t.upload.dragDrop.split(' or ')[0]}
                   </span>
-                  <span className="text-gray-600 dark:text-gray-400"> or drag and drop</span>
+                  <span className="text-gray-600 dark:text-gray-400"> {t.upload.dragDrop.includes(' or ') ? t.upload.dragDrop.split(' or ')[1] : ''}</span>
                   <input
                     type="file"
                     className="hidden"
@@ -196,7 +202,7 @@ export default function UploadPage() {
                   />
                 </label>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                  CSV or Excel files only
+                  {t.upload.fileTypes}
                 </p>
               </div>
             </div>
@@ -209,7 +215,7 @@ export default function UploadPage() {
                     {file?.name}
                   </p>
                   <p className="text-sm text-green-700 dark:text-green-400">
-                    {parsedData.rows.length} responses loaded
+                    {parsedData.rows.length} {t.upload.responsesLoaded}
                   </p>
                 </div>
                 <button
@@ -220,13 +226,13 @@ export default function UploadPage() {
                   }}
                   className="text-sm text-red-600 hover:text-red-700"
                 >
-                  Remove
+                  {t.common.remove}
                 </button>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Respondent ID Column
+                  {t.upload.selectRespondentId}
                 </label>
                 <select
                   value={respondentIdColumn}
@@ -243,7 +249,7 @@ export default function UploadPage() {
 
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  Select Question Columns to Analyze
+                  {t.upload.selectQuestions}
                 </h3>
                 <div className="space-y-2 max-h-96 overflow-y-auto">
                   {parsedData.headers.map((header, index) => (
@@ -265,7 +271,7 @@ export default function UploadPage() {
                         {header}
                       </span>
                       <span className="text-xs text-gray-500 dark:text-gray-400 ml-auto">
-                        Column {index + 1}
+                        {t.upload.column} {index + 1}
                       </span>
                     </label>
                   ))}
@@ -277,7 +283,7 @@ export default function UploadPage() {
                   href="/setup"
                   className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
-                  Back
+                  {t.common.back}
                 </Link>
                 <button
                   onClick={handleProcess}
@@ -287,10 +293,10 @@ export default function UploadPage() {
                   {isProcessing ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      Processing...
+                      {t.common.processing}
                     </>
                   ) : (
-                    <>Continue to Analysis →</>
+                    <>{t.upload.continueToAnalysis} →</>
                   )}
                 </button>
               </div>

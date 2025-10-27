@@ -100,7 +100,10 @@
     "selectRespondentId": "Selecciona Columna de ID de Respondente",
     "selectQuestions": "Selecciona Columnas de Preguntas a Analizar",
     "column": "Columna",
-    "processing": "Procesando archivo..."
+    "processing": "Procesando archivo...",
+    "responsesLoaded": "respuestas cargadas",
+    "backToSetup": "Volver a Configuración",
+    "continueToAnalysis": "Continuar al Análisis"
   },
   "review": {
     "title": "Listo para Analizar",

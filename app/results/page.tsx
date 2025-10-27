@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { ChevronLeft, Loader2, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import Link from 'next/link';
 import ExportMenu from '@/components/export/ExportMenu';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import LanguageToggle from '@/components/LanguageToggle';
 
 interface AnalysisResults {
   projectConfig: any;
@@ -21,6 +23,7 @@ interface AnalysisResults {
 
 export default function ResultsPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [results, setResults] = useState<AnalysisResults | null>(null);
   const [selectedQuestion, setSelectedQuestion] = useState(0);
 
@@ -64,22 +67,25 @@ export default function ResultsPage() {
         <div className="flex items-center justify-between mb-6">
           <Link href="/" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700">
             <ChevronLeft className="w-4 h-4" />
-            Start New Analysis
+            {t.nav.startNewAnalysis}
           </Link>
-          <ExportMenu
-            classifiedAnswers={currentQuestion.classifiedAnswers || []}
-            nets={currentQuestion.nets || []}
-            questionText={currentQuestion.text}
-            respondentIds={currentQuestion.respondentIds || []}
-          />
+          <div className="flex items-center gap-4">
+            <ExportMenu
+              classifiedAnswers={currentQuestion.classifiedAnswers || []}
+              nets={currentQuestion.nets || []}
+              questionText={currentQuestion.text}
+              respondentIds={currentQuestion.respondentIds || []}
+            />
+            <LanguageToggle />
+          </div>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-6">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Analysis Results
+            {t.results.title}
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Project: {results.projectConfig.name}
+            {t.results.project}: {results.projectConfig.name}
           </p>
         </div>
 
@@ -87,7 +93,7 @@ export default function ResultsPage() {
           {/* Question Selector */}
           <div className="lg:col-span-1">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Questions</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-3">{t.results.questions}</h3>
               <div className="space-y-2">
                 {results.questions.map((q, idx) => (
                   <button
@@ -124,7 +130,7 @@ export default function ResultsPage() {
               {currentQuestion.type === 'REFERENCE' ? (
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
-                    All Responses ({currentQuestion.answers?.length})
+                    {t.results.allResponses} ({currentQuestion.answers?.length})
                   </h3>
                   <div className="space-y-2 max-h-96 overflow-y-auto">
                     {currentQuestion.answers?.map((answer, idx) => (
@@ -142,7 +148,7 @@ export default function ResultsPage() {
                   {/* Nets Summary */}
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
-                      Thematic Nets
+                      {t.results.thematicNets}
                     </h3>
                     <div className="grid md:grid-cols-2 gap-4">
                       {currentQuestion.nets?.map((net, idx) => {
@@ -198,7 +204,7 @@ export default function ResultsPage() {
                   {/* Sample Classified Answers */}
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
-                      Sample Classified Responses ({currentQuestion.classifiedAnswers?.length} total)
+                      {t.results.sampleResponses} ({currentQuestion.classifiedAnswers?.length} {t.results.total})
                     </h3>
                     <div className="space-y-3 max-h-96 overflow-y-auto">
                       {currentQuestion.classifiedAnswers?.slice(0, 10).map((ca, idx) => (

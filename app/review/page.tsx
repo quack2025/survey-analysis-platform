@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { ChevronLeft, Loader2, Check, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { detectLanguage } from '@/lib/utils/language';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import LanguageToggle from '@/components/LanguageToggle';
 
 interface Question {
   columnIndex: number;
@@ -27,10 +29,11 @@ interface ProcessingStatus {
 
 export default function ReviewPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [surveyData, setSurveyData] = useState<SurveyData | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [status, setStatus] = useState<ProcessingStatus>({
-    currentStep: 'Initializing...',
+    currentStep: t.common.loading,
     progress: 0,
     total: 0,
   });
@@ -74,7 +77,7 @@ export default function ReviewPage() {
 
       for (const question of surveyData.questions) {
         setStatus({
-          currentStep: 'Classifying question type',
+          currentStep: t.review.classifying,
           currentQuestion: question.text,
           progress: currentProgress++,
           total: totalSteps,
@@ -100,7 +103,7 @@ export default function ReviewPage() {
         if (questionType === 'OPINION') {
           // Process as opinion question
           setStatus({
-            currentStep: 'Extracting codes',
+            currentStep: t.review.extractingCodes,
             currentQuestion: question.text,
             progress: currentProgress++,
             total: totalSteps,
@@ -120,7 +123,7 @@ export default function ReviewPage() {
           const extractData = await extractRes.json();
 
           setStatus({
-            currentStep: 'Normalizing codes',
+            currentStep: t.review.normalizingCodes,
             currentQuestion: question.text,
             progress: currentProgress++,
             total: totalSteps,
@@ -138,7 +141,7 @@ export default function ReviewPage() {
           const normalizeData = await normalizeRes.json();
 
           setStatus({
-            currentStep: 'Generating thematic nets',
+            currentStep: t.review.generatingNets,
             currentQuestion: question.text,
             progress: currentProgress++,
             total: totalSteps,
@@ -158,7 +161,7 @@ export default function ReviewPage() {
           const netsData = await netsRes.json();
 
           setStatus({
-            currentStep: 'Classifying answers',
+            currentStep: t.review.classifyingAnswers,
             currentQuestion: question.text,
             progress: currentProgress++,
             total: totalSteps,
@@ -219,22 +222,24 @@ export default function ReviewPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {!isProcessing && (
-          <Link
-            href="/upload"
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-6"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Back to Upload
-          </Link>
+          <div className="flex justify-between items-center mb-6">
+            <Link
+              href="/upload"
+              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              {t.nav.upload}
+            </Link>
+            <LanguageToggle />
+          </div>
         )}
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Ready to Analyze
+            {t.review.title}
           </h1>
           <p className="text-gray-600 dark:text-gray-300 mb-8">
-            {surveyData.questions.length} question{surveyData.questions.length !== 1 ? 's' : ''}{' '}
-            will be analyzed
+            {surveyData.questions.length} {t.review.subtitle}
           </p>
 
           {error && (
@@ -259,7 +264,7 @@ export default function ReviewPage() {
                       <div className="flex-1">
                         <p className="font-medium text-gray-900 dark:text-white">{q.text}</p>
                         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                          {q.answers.length} responses
+                          {q.answers.length} {t.upload.responsesLoaded}
                         </p>
                       </div>
                     </div>
@@ -269,24 +274,24 @@ export default function ReviewPage() {
 
               <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 mb-8">
                 <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">
-                  What will happen:
+                  {t.review.whatWillHappen}
                 </h3>
                 <ul className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    Each question will be classified as REFERENCE or OPINION
+                    {t.review.step1}
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    Opinion questions will be coded and grouped into themes
+                    {t.review.step2}
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    All responses will be categorized with sentiment analysis
+                    {t.review.step3}
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    Results will be ready for export and visualization
+                    {t.review.step4}
                   </li>
                 </ul>
               </div>
@@ -295,7 +300,7 @@ export default function ReviewPage() {
                 onClick={processAllQuestions}
                 className="w-full bg-blue-600 text-white px-6 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg"
               >
-                Start Analysis
+                {t.review.startAnalysis}
               </button>
             </>
           ) : (
@@ -318,15 +323,14 @@ export default function ReviewPage() {
                     />
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                    Step {status.progress} of {status.total}
+                    {status.progress} / {status.total}
                   </p>
                 </div>
               </div>
 
               <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
                 <p className="text-sm text-yellow-800 dark:text-yellow-200 text-center">
-                  This may take a few minutes depending on the number of responses. Please don't close
-                  this window.
+                  {t.review.pleaseWait}
                 </p>
               </div>
             </div>

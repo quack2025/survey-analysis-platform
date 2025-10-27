@@ -100,7 +100,10 @@
     "selectRespondentId": "Select Respondent ID Column",
     "selectQuestions": "Select Question Columns to Analyze",
     "column": "Column",
-    "processing": "Processing file..."
+    "processing": "Processing file...",
+    "responsesLoaded": "responses loaded",
+    "backToSetup": "Back to Setup",
+    "continueToAnalysis": "Continue to Analysis"
   },
   "review": {
     "title": "Ready to Analyze",
